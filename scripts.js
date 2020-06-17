@@ -19,6 +19,7 @@ var processEntries = function () {
     var investment = parseFloat($("investment").value);
     var years = parseFloat($("years").value);
     var rate = parseFloat($("rate").value);
+
     var isValid = true;
 
     if (isNaN(investment) || investment <= 0 || investment >= 100000) {
@@ -48,7 +49,6 @@ var processEntries = function () {
     if (isValid) {
         $("result").value = calculateFV(investment, years, rate);
     }
-
 };
 
 var clearEntries = function () {
