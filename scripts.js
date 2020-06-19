@@ -6,8 +6,7 @@ var $ = function (id) {
 };
 
 var calculateFV = function (investment, years, rate) {
-    var futureValue;
-    futureValue = investment;
+    var futureValue = investment;
     for (var i = 1; i <= years; i++) {
         futureValue = futureValue + (futureValue * rate / 100);
     }
@@ -15,7 +14,34 @@ var calculateFV = function (investment, years, rate) {
     return futureValue;
 };
 
+var formatFV = function (futureValue) {
+    var deciLocation = futureValue.indexOf(".");
+    var cents = futureValue.substring(deciLocation + 1, deciLocation + 3);
+    var hundreds = futureValue.substring(deciLocation - 3, deciLocation);
+    var thousands = "";
+    var millions = "";
+
+    if(deciLocation < 6 ) {
+        thousands = futureValue.substring(0, deciLocation - 3);
+        millions = "";
+    }
+    else {
+        thousands = futureValue.substring(deciLocation - 6, deciLocation - 3);
+        millions = futureValue.substring(0, deciLocation - 6);
+    }
+    var formattedValue = "";
+    if(deciLocation >= 7) {
+        formattedValue = "$" + millions + "," + thousands + "," + hundreds +
+        "." + cents;
+    }
+    else {
+        formattedValue = "$" + thousands + "," + hundreds + "." + cents;
+    }
+    return formattedValue;
+};
+
 var processEntries = function () {
+    var futureValue;
     var investment = parseFloat($("investment").value);
     var years = parseFloat($("years").value);
     var rate = parseFloat($("rate").value);
@@ -47,7 +73,8 @@ var processEntries = function () {
     }
 
     if (isValid) {
-        $("result").value = calculateFV(investment, years, rate);
+        futureValue = calculateFV(investment, years, rate);
+        $("result").value = formatFV(futureValue);
     }
 };
 
