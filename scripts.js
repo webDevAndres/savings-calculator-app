@@ -20,8 +20,9 @@ var formatFV = function (futureValue) {
     var hundreds = futureValue.substring(deciLocation - 3, deciLocation);
     var thousands = "";
     var millions = "";
+    var formattedValue = "";
 
-    if(deciLocation < 6 ) {
+    if (deciLocation < 6) {
         thousands = futureValue.substring(0, deciLocation - 3);
         millions = "";
     }
@@ -29,10 +30,10 @@ var formatFV = function (futureValue) {
         thousands = futureValue.substring(deciLocation - 6, deciLocation - 3);
         millions = futureValue.substring(0, deciLocation - 6);
     }
-    var formattedValue = "";
-    if(deciLocation >= 7) {
+   
+    if (deciLocation >= 7) {
         formattedValue = "$" + millions + "," + thousands + "," + hundreds +
-        "." + cents;
+            "." + cents;
     }
     else {
         formattedValue = "$" + thousands + "," + hundreds + "." + cents;
